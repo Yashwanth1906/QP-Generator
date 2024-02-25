@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table Page</title>
+  <script src="rockey.js"></script>
+  <style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  word-wrap: break-word;
+  white-space: normal; 
+}
+
+.f {
+  padding: 0px;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.backg {
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.l {
+  
+  max-width: 300px;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
+  </style>
+</head>
+<body>
+  
+      
+        <div class="backg">
+            <div class="container">
+  <table>
+    <tr>
+        <th colspan="2" class="f">
+                    <p style="float:left" id="setCell">{{b}} </p>
+            
+            <p style="float:right">Reg.no</p>            
+        </th>
+
+    </tr>
+    <tr>
+        <th><img src="https://th.bing.com/th/id/OIP.Yspfv7r1PSaUiWAIveUFAQAAAA?rs=1&pid=ImgDetMain"></th>
+        <th colspan="3">CHENNAI INSTITUTE OF TECHNOLOGY<br>
+            Autonomous <br>
+            Sarathy Nagar, Pudupedu, Chennai– 600 069.
+            <p id="assTypeCell">{{g}}</p>
+            </th>
+            
+    </tr>
+    <tr>
+      <td><div style="float:left">Date:</div><div id="dateCell"> </div></td>
+      <td>{{d}}</td>
+      <td>Max. Marks</td>
+      <td>100marks</td>
+      
+    </tr>
+   
+    <tr>
+      <td >Subject Code /Name</td>
+      <td id="code" class="l">{{a}}</td>
+      <td>Time</td>
+      <td>3 hr</td>
+    </tr>
+    <tr>
+      <td>Branch</td>
+      <td id="branchCell">{{c}}</td>
+      <td>Year/Semester</td>
+      <td id="yearSemesterCell">{{e}}/{{f}}</td>
+    </tr>
+  </table><br>
+  <div>
+    <h2 class="spa"> Courde Objectives:</h2>
+    <p id="1"></p>
+    <p id="2"></p>
+    <p id="3"></p>
+    <p id="4"></p>
+    <p id="5"></p>
+  </div>
+  <table>
+    <h2>Course Outcomes:</h2>
+    On Completion of the course the students will be able to
+    <tr>
+        <th>CO.NO</th>
+        <th style="text-align:justify">Course Outcomes</th>
+        <th>RBT Level</th>
+    </tr>
+    <tr>
+        <td><div style="float:left">1.</div><div id="datecell"> </div></td>
+        <td id="out1"></td>
+        <td id="l1"></td>
+    </tr>
+    <tr>
+        <td><div style="float:left">2.</div><div id="datecell"> </div></td>
+        <td id="out2"></td>
+        <td id="l2"></td>
+    </tr>
+    <tr>
+        <td><div style="float:left">3.</div><div id="datecell"> </div></td>
+        <td id="out3"></td>
+        <td id="l3"></td>
+    </tr>
+    <tr>
+        <td><div style="float:left">4.</div><div id="datecell"> </div></td>
+        <td id="out4"></td>
+        <td id="l4"></td>
+    </tr>
+    <tr>
+        <td><div style="float:left">5.</div><div id="datecell"> </div></td>
+        <td id="out5"></td>
+        <td id="l5"></td>
+    </tr>
+
+  </table>
+  <br>
+  <table>
+   <tr>
+    
+        <th colspan="5"><center><div>REVISED BLOOMS TAXONOMY(RBT)</div></center>
+            L1-Remembering, L2-Understanding, L3-Applying, L4-Analyzing, L5-Evaluating, L6-Creating </th>
+
+    </tr>
+    <tr>
+        <td style="padding:0px">Q.No</td>
+  <td><center><div>Part A-(10 x 2 = 20 marks)</div></center>
+                 <center>   (Answer all the questions)</center>
+        </td>
+        <td>RBT Level</td>
+    </tr>
+    {% for i in parta%}
+    <tr><td></td>
+    <td>{{i}}</td>
+    <td></td>
+</tr>
+{% endfor %}
+  </table>
+  <br>
+  <br>
+  <table>
+    <tr>
+      <th>Q.No</th><th colspan="2">
+      <center><div>Part B-(10 x 2 = 20 marks)</div></center>
+        <center>   (Answer all the questions)</center>
+   </th>
+   <th>
+    CO
+   </th>
+   <th>RBT Level</th>
+
+   </tr>
+   <tr>
+    <td rowspan="3">
+      11.
+    </td>
+    <td width="10px">
+      (a)
+    </td>
+    <td width="470px">
+      {% for i in 11a%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+    </td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan="4">
+     <center>OR</center>
+    </td>
+   </tr>
+   <tr>
+    <td>
+      (b)
+    </td>
+    <td>
+      {% for i in 11b%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+   </tr>
+   <tr>
+    <td rowspan="3">
+      12.
+    </td>
+    <td width="10px">
+      (a)
+    </td>
+    <td width="470px">
+      {% for i in 12a%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan="4">
+     <center>OR</center>
+    </td>
+   </tr>
+   <tr>
+    <td>
+      (b)
+    </td>
+    <td>
+      {% for i in 12b%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+   </tr>
+   <tr>
+    <td rowspan="3">
+      13.
+    </td>
+    <td width="10px">
+      (a)
+    </td>
+    <td width="470px">
+      {% for i in 13a%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan="4">
+     <center>OR</center>
+    </td>
+   </tr>
+   <tr>
+    <td>
+      (b)
+    </td>
+    <td>
+      {% for i in 13b%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+   </tr>
+   <tr>
+    <td rowspan="3">
+      14.
+    </td>
+    <td width="10px">
+      (a)
+    </td>
+    <td width="470px">
+      {% for i in 14a%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan="4">
+     <center>OR</center>
+    </td>
+   </tr>
+   <tr>
+    <td>
+      (b)
+    </td>
+    <td>
+      {% for i in 14b%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+   </tr>
+   <tr>
+    <td rowspan="3">
+      15.
+    </td>
+    <td width="10px">
+      (a)
+    </td>
+    <td width="470px">
+      {% for i in 15a%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+    <td></td>
+   </tr>
+   <tr>
+    <td colspan="4">
+     <center>OR</center>
+    </td>
+   </tr>
+   <tr>
+    <td>
+      (b)
+    </td>
+    <td>
+      {% for i in 15b%}
+      <div>
+        {{i}}
+      </div>
+      {% endfor %}
+    </td>
+    <td>
+
+    </td>
+   </tr>
+  </table>
+  <br><br>
+  <center><pre style="font-size:20px">~* All the Best *~</pre></center>
+  <br>
+  <br>
+  <br>
+  <pre style="font-size:20px">     Preapared By                Verified By                 IQAC                   Approved By</pre>
+</div>
+</div>
+<div>
+  <h3 style="text-align: center;">Make sure to exit to delete the old qn bank database</h3> <br>
+  <a href="/truncate"><h3>Exit</h3></a>
+</div>
+</body>
+</html>

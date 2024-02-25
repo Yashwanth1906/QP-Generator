@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Question Paper Generator</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="">Subject Code:</label>
+        <select id="subjectcode" name="subject_code">
+            <option id="Null">Choose code</option>
+            <option id="CS3101">CS3101/Problem solving using c++ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
+            <option id="CS3102">CS3102</option>
+        </select>
+        <br>
+        <br>
+            <label >Branch:</label>
+        <select id="branch" name="branch">
+            <option id="Null">Choose code</option>
+            <option id="CSE">CSE</option>
+            <option id="MECH">MECH</option>
+        </select>
+        <br>
+        <br>
+        <label>Set:</label>
+        <select id="set" name="set">
+            <option>Choose code</option>
+            <option>A</option>
+            <option>B</option>
+        </select>
+        <br>
+        <br></div>
+        <h1>Details</h1>
+        <label>Date</label> <input id="date" type="date" name="date">
+        <br>
+        <br>
+        <label>Year</label>
+        <select id="year" name="year">
+            <option id="Null">Choose code</option>
+            <option id="I">I</option>
+            <option id="II">II</option>
+        </select>
+        <br>
+        <br>
+        <label>Semester</label>
+        <select id="semester" name="semester">
+            <option id="Null">Choose code</option>
+            <option id="1st">1st</option>
+            <option id="2nd">2nd</option>
+        </select>
+        <br>
+        <br>
+        <label>Type of Assesment</label>
+        <select name="assestype" id="assestype">
+            <option id="null">Select type</option>
+            <option id="asses1">Internal Assesment 1</option>
+            <option id="asses2">Internal Assesment 2</option>
+            <option id="Model">Internal Assesment 3</option>
+            <option id="semester">Semester</option>
+        </select>
+        <br>
+        <br>
+        <h1>Questions</h1>
+        <h4>PART A</h4>
+        <label>Number of 1 type question: </label> <input id="a1" type="number" name="partA_diff1">
+        <br>
+        <br>
+        <label>Number of 2 type question: </label> <input id="a2" type="number" name="partA_diff2">
+        <br>
+        <br>
+        <label>Number of 3 type question: </label> <input id="a3" type="number" name="partA_diff3">
+        <br>
+        <br>
+        <h4>PART B</h4>
+        <label>Number of 1 type question: </label> <input id="b1" type="number" name="partB_diff1">
+        <br>
+        <br>
+        <label>Number of 2 type question: </label> <input id="b2" type="number" name="partB_diff2">
+        <br>
+        <br>
+        <label>Number of 3 type question: </label> <input id="b3" type="number" name="partB_diff3">
+        <br>
+        <br>
+        <button type="submit">Generate</button>
+    </form>
+    <a href="/getqns">go</a>
+    </center>
+</body>
+</html>

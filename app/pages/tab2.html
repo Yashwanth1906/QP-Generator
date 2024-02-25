@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Question Paper Generator</title>
+    <script src="script.js"></script>
+    <style>
+        #subjectcode,
+        #branch,
+        #set,
+        #year,
+        #semester,
+        #assestype,
+        input[type="number"],
+        input[type="date"] {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+        }
+
+        center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+*{
+   margin:0;
+   padding:0;
+
+}
+body{
+   background-size: 280%;
+   background-position:-400px 0px;
+   
+    }
+div.k{
+   width:400px;
+   margin:100px auto 0px auto;
+
+}
+h1{
+   text-align:center;
+
+   padding:20px;
+   font-family:sans-serif;
+}
+div.r{
+   background-color:rgba(0,0,0,0.5);
+   width:100%;
+   font-size:18px;
+   border-radius:10px;
+   border:1px solid rgba(255,255,255,0.3);
+   box-shadow: 2px 2px 15px;
+   rgba(0,0,0,0.3);
+   color:#fff;
+}
+form{
+   margin:40px;
+
+}
+label{
+   font-family:sans-serif;
+   font-size:18px;
+   font-style:italic;
+
+}
+input{
+   width:300px;
+   border:1px solid #ddd;
+   border-radius:3px;
+   outline:0;
+   padding:7px;
+   background-color:#fff;
+   box-shadow: inset 1px 1px 5px;
+   rgba(0,0 , 0,0.3);
+
+}
+input,select{
+   width:200px;
+   padding:7px;
+   font-size:16px;
+   font-family:sans-serief;
+   font-weight: 600;
+   border:none;
+   border-radius:3px;
+   background-color:rgba(250,100,0,0.8);
+   color:#fff;
+   cursor:pointer;
+   border:1px solid;
+   rgba(255,255,255,0.3);
+   box-shadow:1px 1px 5px;
+   rgba(0,0,0,0.3);
+}
+label{
+   text-shadow:1px 1px 5px;
+   rgba(0,0,0,0.3);
+}
+nav {
+            display: flex;
+            border-width: 10px solid black;
+
+            justify-content: center;
+        }
+
+        .logo{
+            float: left;
+            padding: 10px;
+        }
+
+        .logo img {
+            height: 100px; 
+            width: auto; 
+        }
+
+        .title{
+            display: flex;
+            align-items: center;
+            height: 122px;
+        }
+
+        h1 {
+            text-align: center;
+            padding-top: 20px;
+            font-family: sans-serif; 
+             
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://th.bing.com/th/id/OIP.39YzNamjMvlI2-OnRTUOcgHaBX?w=640&h=118&rs=1&pid=ImgDetMain" alt="Logo">
+        </div>
+        <div class="title">
+            <h1>CIT QUESTION PAPER GENERATOR</h1>
+        </div>
+    </nav>
+
+<div class="k">
+
+    <div class="r">
+        <center><h1>Question Paper Generator</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label>SubjectCode:</label>
+        <select id="subjectcode" name="subject_code">
+            <option id="Null">Choose code</option>
+            <option id="CS3101">CS3101/Problem solving using c++</option>
+            <option id="CS3102">CS3102</option>
+        </select>
+        <br>
+        <br>
+            <label >Branch:</label>
+        <select id="branch" name="branch">
+            <option id="Null">Choose code</option>
+            <option id="CSE">CSE</option>
+            <option id="MECH">MECH</option>
+        </select>
+        <br>
+        <br>
+        <label>Set:</label>
+        <select id="set" name="set">
+            <option>Choose code</option>
+            <option>A</option>
+            <option>B</option>
+        </select>
+        <br>
+        <br>
+        <h1>Details</h1>
+        <label>Date</label> <input id="date" type="date" name="date">
+        <br>
+        <br>
+        <label>Year</label>
+        <select id="year" name="year">
+            <option id="Null">Choose code</option>
+            <option id="I">I</option>
+            <option id="II">II</option>
+        </select>
+        <br>
+        <br>
+        <label>Semester</label>
+        <select id="semester" name="semester">
+            <option id="Null">Choose code</option>
+            <option id="1st">1st</option>
+            <option id="2nd">2nd</option>
+        </select>
+        <br>
+        <br>
+        <label>Type of Assesment</label>
+        <select name="assestype" id="assestype">
+            <option id="null">Select type</option>
+            <option id="asses1">Internal Assesment 1</option>
+            <option id="asses2">Internal Assesment 2</option>
+            <option id="Model">Internal Assesment 3</option>
+            <option id="semester">Semester</option>
+        </select>
+        <br><br>
+        <h1>Questions</h1>
+        <h4>PART A</h4>
+        <label for="a1">Number of 1 type question:</label>
+        <input id="a1" type="number" name="partA_diff1">
+        <br>
+
+        <label for="a2">Number of 2 type question:</label>
+        <input id="a2" type="number" name="partA_diff2">
+        <br>
+
+        <label for="a3">Number of 3 type question:</label>
+        <input id="a3" type="number" name="partA_diff3">
+        <br>
+
+        <h4>PART B</h4>
+        <label for="b1">Number of 1 type question:</label>
+        <input id="b1" type="number" name="partB_diff1">
+        <br>
+
+        <label for="b2">Number of 2 type question:</label>
+        <input id="b2" type="number" name="partB_diff2">
+        <br>
+
+        <label for="b3">Number of 3 type question:</label>
+        <input id="b3" type="number" name="partB_diff3">
+        <br>
+
+        <button type="submit">Generate</button>
+    </form>
+    <a href="/getqns">Generate</a>
+    </center>
+</div>
+</div>
+</body>
+</html>
