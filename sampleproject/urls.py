@@ -21,8 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.showupload),
     path('truncate/',views.truncate),
-    path('random/',views.showrandom),
     path('select/',views.showindex),
     path('getqns/',views.showqns),
-    path('image/',views.showimage),
 ]

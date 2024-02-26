@@ -44,144 +44,7 @@ check1 = []
 for i in range(5):
     check1.append(i)
 print(check1)
-def parta_generateqns(x,diff):    # x is the the difficulty level and diff is the no.of.questions in that
-    y = questions.objects.all()     #getting all the questions
-    qn = y.values('question','Type','difficulty','marks')
-    questions1 = []              #organising all the questions in this list
-    for i in qn:
-        temp = []
-        temp.append(i['question'])
-        temp.append(i['Type'])
-        temp.append(i['difficulty'])
-        temp.append(i['marks'])
-        questions1.append(temp)     
-    count = 0
-    global message
-    for i in questions1:
-        if i[2] == x:
-            count+=1
-    if count ==0:   # no questioins found in that difficulty level
-        message += "no questions found in diffculty"+str(x)+"in parta,"    
-        return
-    if count<diff:    # setting to the no.of.questions to available no.of.questions
-        diff = count
-        message += "only found "+str(count)+" questions in difficulty"+str(x)+" in parta,"
-    count = 0
-    taken = []
-    while(True):
-        selected = random.choice(questions1)
-        if selected[2]==x and selected[3] ==2:
-            global counta
-            temp =  selected[0]
-            if temp not in taken:
-                parta_questions.append(temp)
-                taken.append(temp)
-                count+=1
-                counta+=1
-            if count == diff:
-                break
-taken = []
-def partb_generateqns(x,diff,part):
-    y = questions.objects.all()
-    qn = y.values('question','Type','difficulty','marks')
-    questions1 = []
-    for i in qn:
-        temp = []
-        temp.append(i['question'])
-        temp.append(i['Type'])
-        temp.append(i['difficulty'])
-        temp.append(i['marks'])
-        questions1.append(temp)
-    global message
-    count = 0
-    tens = 0
-    sixs = 0
-    eights = 0
-    fours = 0
-    twelves = 0
-    sixteens = 0
-    for i in questions1:
-        if i[1] == part and i[2] == x and len(i)>=4 and i not in taken:
-            if i[3] == 10:
-                tens+=1
-            elif i[3] == 6:
-                sixs +=1
-            elif i[3] == 8:
-                eights +=1
-            elif i[3] == 4:
-                fours += 1
-            elif i[3] == 12:
-                twelves += 1
-            elif i[3] == 16:
-                sixteens+=1
-    check = min(tens,sixs) + min(fours,twelves) + (eights//2) + sixteens
-    if check == 0:
-        message += "no questions found in partb in difficulty"+str(x)
-        return
-    if check < diff:
-        diff = check
-        message += "Only "+str(check)+" questions in difficulty"+str(x)+","
-    while(True):
-        qn = random.choice(questions1)
-        if (qn[1] == part) and qn[2] == x and len(qn)>=4 and qn not in taken:
-            if qn[3] == 16:
-                partb_questions.append(qn)
-                questions1.remove(qn)
-                count+=1
-            elif qn[3] == 8:
-                c = 0
-                for i in questions1:
-                    if len(i)>=4 and i[3] == 8 and i[1] == part and i[2] == x and i not in taken:
-                        c+=1
-                if c>1:
-                    temp = []
-                    temp.append(qn)
-                    questions1.remove(qn)
-                    while True:
-                        another = random.choice(questions1)
-                        if len(another)>=4 and another[3] == 8 and another[1] == part and another[2] == x and another not in taken:
-                            temp.append(another)
-                            questions1.remove(another)
-                            count+=1
-                            partb_questions.append(temp)
-                            break
-            elif qn[3] == 12:
-                c = 0
-                for i in questions1:
-                    if len(i)>=4 and i[3] == 4 and i[1] == part and i[2] == x and i not in taken:
-                        c+=1
-                if c>0:
-                    temp = []
-                    temp.append(qn)
-                    questions1.remove(qn)
-                    while True:
-                        another = random.choice(questions1)
-                        if len(another)>=4 and another[3] == 4 and another[1] == part and another[2] == x and another not in taken:
-                            temp.append(another)
-                            questions1.remove(another)
-                            partb_questions.append(temp)
-                            count+=1
-                            break
-            elif qn[3] == 10:
-                c = 0
-                for i in questions1:
-                    if len(i)>=4 and i[3] == 6 and i[1] == part and i[2] == x and i not in taken:
-                        c+=1
-                if c>0:
-                    temp =[]
-                    temp.append(qn)
-                    questions1.remove(qn)
-                    while True:
-                        another = random.choice(questions1)
-                        if len(another)>=4 and another[3] == 6 and another[1] == part and another[2] == x and another not in taken:
-                            temp.append(another)
-                            taken.append(another)
-                            questions1.remove(another)
-                            count+=1
-                            partb_questions.append(temp)
-                            break
-        if count == diff:
-            break
+
 def showqns(r):
     global code,set,branch,date,year,semester,assessment
     parta = partA.objects.values('difficulty1','difficulty2','difficulty3')  #getting the no.of.questions in the difficulty level
@@ -198,15 +61,14 @@ def showqns(r):
     for i in qn:
         temp = []
         temp.append(i['question'])
-        temp.append(i['Type'])
         temp.append(i['difficulty'])
         temp.append(i['marks'])
         temp.append(i['topic'])
         questions1.append(temp)
     topics = []
     for i in questions1:
-        if i[4] not in topics:
-            topics.append(i[4])
+        if i[3] not in topics:
+            topics.append(i[3])
     print(topics)
     x = []
     for i in range(len(topics)):
@@ -215,24 +77,48 @@ def showqns(r):
     print(x)
     for k,j in enumerate(topics):
         for i in questions1:
-            if j == i[4]:
+            if j == i[3]:
                 x[k].append(i)
-    solveA("a",1,parta_diff1,x)
-    solveA("a",2,parta_diff2,x)
-    solveA("a",3,parta_diff3,x)
-    partb_generateqns(1,partb_diff1,'b')
-    partb_generateqns(2,partb_diff2,'b')
-    partb_generateqns(3,partb_diff3,'b')
-    global message
-    global counta
+    global questionb_paper
     global questiona_paper
-    global partb_questions
-    z = partb_questions
+    global message
+    y = message
+    solveA(1,parta_diff1,x)
+    for i in questiona_paper:
+        for j in x:
+            if i in j:
+                print("AYES")
+    solveA(2,parta_diff2,x)
+    for i in questiona_paper:
+        for j in x:
+            if i in j:
+                print("AYES")
+    solveA(3,parta_diff3,x)
+    for i in questiona_paper:
+        for j in x:
+            if i in j:
+                print("AYES")
+    solveB(1,partb_diff1,x)
+    for i in questionb_paper:
+        for j in x:
+            if i in j:
+                print("BYES")
+    solveB(2,partb_diff2,x)
+    for i in questionb_paper:
+        for j in x:
+            if i in j:
+                print("BYES")
+    solveB(3,partb_diff3,x)
+    for i in questionb_paper:
+        for j in x:
+            if i in j:
+                print("BYES")
+    print(questionb_paper)
+    z = questionb_paper
     partaqns= []
     for i in questiona_paper:
         partaqns.append(i[0])
-    y = message
-    partb_questions = []
+    questionb_paper = []
     questiona_paper = []
     a11 = []
     b11 = []
@@ -245,9 +131,10 @@ def showqns(r):
     a15  =[]
     b15 = []
     no = 0
+    questioninner = []
     for i in z:
-        print(i)
-    for i in z:
+        questioninner.append(i)
+    for i in questioninner:
         if len(i)==4:
             if no == 0:
                 a11.append(i[0])
@@ -307,25 +194,13 @@ def showqns(r):
                 else:
                     break
             no+=1
-    print(taken)
     print("a11:",end="")
     print(a11)
     print("b11:",end="")
     print(b11)
     message = ""
     counta = 1
-    return render(r,"show.html",{'parta':partaqns,'message':y,'partb':z,'a':code,'b':set,'c':branch,'d':date,'e':year,'f':semester,'g':assessment,'11a':a11,'11b':b11,'12a':a12,'12b':b12,'13a':a13,'13b':b13,'14a':a14,'14b':b14,'15a':a15,'15b':a15})
-
-def showimage(r):
-    if r.POST:
-        x = ImageForm(r.POST)
-        x.save()
-        y = Image.objects.all()
-        print(y)
-        return render(r,"image.html",{'image':y})
-    else:
-        z= ImageForm()
-        return render(r,"image.html",{'values':z})
+    return render(r,"show.html",{'parta':partaqns,'partb':z,'a':code,'b':set,'c':branch,'d':date,'e':year,'f':semester,'g':assessment,'11a':a11,'11b':b11,'12a':a12,'12b':b12,'13a':a13,'13b':b13,'14a':a14,'14b':b14,'15a':a15,'15b':a15})
     
 def showupload(r):
     msg = ''
@@ -385,151 +260,36 @@ def truncate(r):
     questions.objects.all().delete()
     return render(r,"exit.html")
 
-def showrandom(r):
-    y = questions.objects.all()
-    qn = y.values('question','Type','difficulty','marks','topic')
-    questions1 = []
-    for i in qn:
-        temp = []
-        temp.append(i['question'])
-        temp.append(i['Type'])
-        temp.append(i['difficulty'])
-        temp.append(i['marks'])
-        temp.append(i['topic'])
-        questions1.append(temp)
-    print(questions1)
-    parta = []
-    count = 0
-    for i in questions1:
-        if i[3] == 2:
-            count+=1
-    if count >=5:
-        num = 5
-    else:
-        num = count
-    count = 0
-    while True:
-        qn = random.choice(questions1)
-        if(qn[3]==2):
-            parta.append(qn)
-            questions1.remove(qn)
-            count += 1
-            if count == num:
-                break
-    print(parta)
-    print(questions1)
-    partb = []
-    count = 0
-    tens = 0
-    sixs = 0
-    eights = 0
-    fours = 0
-    twelves = 0
-    sixteens = 0
-    for i in questions1:
-        if i[3] == 10:
-            tens+=1
-        elif i[3] == 6:
-            sixs +=1
-        elif i[3] == 8:
-            eights +=1
-        elif i[3] == 4:
-            fours += 1
-        elif i[3] == 12:
-            twelves += 1
-        elif i[3] == 16:
-            sixteens+=1
-    check = min(tens,sixs) + min(fours,twelves) + (eights//2) + sixteens
-    if check>=5:
-        num = 5
-    else:
-        num = check
-    while(True):
-        qn = random.choice(questions1)
-        if qn[3] == 16:
-            partb.append(qn)
-            questions1.remove(qn)
-            count+=1
-        elif qn[3] == 8:
-            c = 0
-            for i in questions1:
-                if  i[3] == 8:
-                    c+=1
-                if c>1:
-                    partb.append(qn)
-                    while True:
-                        another = random.choice(questions1)
-                        if another[3] == 8:
-                            partb.append(another)
-                            questions1.remove(another)
-                            count+=1
-                            break
-        elif qn[3] == 12:
-            c = 0
-            for i in questions1:
-                if len(i)>=4 and i[3]:
-                    c+=1
-                if c>0:
-                    partb.append(qn)
-                    questions1.remove(qn)
-                    while True:
-                        another = random.choice(questions1)
-                        if len(another)>=4 and another[3] == 4:
-                            partb.append(another)
-                            questions1.append(another)
-                            count+=1
-                            break
-        elif qn[3] == 10:
-            c = 0
-            for i in questions1:
-                if len(i)>=4 and i[3] == 6:
-                    c+=1
-                if c>0:
-                    partb.append(qn)
-                    questions1.remove(qn)
-                    while True:
-                        another = random.choice(questions1)
-                        if len(another)>=4 and another[3] == 6:
-                            partb.append(another)
-                            questions1.remove(another)
-                            count+=1
-                            break
-        if count == num:
-            break
-    print("parta")
-    print(parta)
-    print("partb")
-    print(partb)
-    return render(r,"show.html",{'parta':parta,'partb':partb})
-
-def call(topics,li,part,diff,questions):
+import random
+def call(topics,li,diff,questions):
     for i in range(topics):
         for j in questions[i]:
-            if (j[1]==part) and (j[2]==diff):
+            if (j[2]==2) and (j[1]==diff):
                 li[i]=1
                 break
 questiona_paper = []
-def solveA(part,diff,num,questions):
+questionb_paper = []
+def solveA(diff,num,questions):
     global questiona_paper
     check = 0
     topics = 0
     for i in questions:
         topics+=1                         
         for j in i:                       
-            if j[1]==part and j[2]==diff: 
+            if j[2]==2 and j[1]==diff: 
                 check+=1
     if check < num:
         num = check
 
     li = [0]*topics
-    call(topics,li,part,diff,questions)
+    call(topics,li,diff,questions)
     count = 0
     while(True):
         if (num==0):
             break
         topic = random.choice(questions)
         question = random.choice(topic)
-        if (question[1]==part) and (question[2]==diff) and li[questions.index(topic)]==1:
+        if (question[2]==2) and (question[1]==diff) and li[questions.index(topic)]==1:
             #print("{}.) {} (2x1=2)".format(count+1,question[0]))
             questiona_paper.append(question)
             topic.remove(question)
@@ -539,18 +299,16 @@ def solveA(part,diff,num,questions):
                 break
             if li.count(0)==len(li):
                 #li=[0]*topics
-                call(topics,li,part,diff,questions)
-    print(questiona_paper)
+                call(topics,li,diff,questions)
 
 def call2(temp,q_p_t):
     for i in range(len(q_p_t)):
         if q_p_t[i]>0:
             temp[i]=1
 
-def solveB(part,diff,num,questions):
+def solveB(diff,num,questions):
     count = 0
     ques_per_topic = []
-    question_paper =[]
     for topics in questions:
         tens = 0
         sixs = 0
@@ -559,18 +317,18 @@ def solveB(part,diff,num,questions):
         twelves = 0
         sixteens = 0
         for i in topics:
-            if i[1]==part and i[2]==diff:
-                if i[3]==10:
+            if (i[2] in [4,6,10,12,16]) and i[1]==diff:
+                if i[2]==10:
                     tens+=1
-                elif i[3]==6:
+                elif i[2]==6:
                     sixs+=1
-                elif i[3]==8:
+                elif i[2]==8:
                     eights+=1
-                elif i[3]==4:
+                elif i[2]==4:
                     fours+=1
-                elif i[3]==12:
+                elif i[2]==12:
                     twelves+=1
-                elif i[3]==16:
+                elif i[2]==16:
                     sixteens+=1
         check = min(tens,sixs) + min(fours,twelves) + (eights//2) + sixteens
         ques_per_topic.append(check)
@@ -585,31 +343,31 @@ def solveB(part,diff,num,questions):
         topic = random.choice(questions)
         question = random.choice(topic)
 
-        if (question[1]==part) and (question[2]==diff) and temp[questions.index(topic)]==1:
+        if (question[2] in [4,6,10,12,16]) and (question[1]==diff) and temp[questions.index(topic)]==1:
 
-            if question[3]==16:   
+            if question[2]==16: 
                 #print("{}.) {} (16x1=16)".format(count+1,question[0]))
-                question_paper.append(question)
+                questionb_paper.append(question)
                 topic.remove(question)
                 count += 1
                 temp[questions.index(topic)]=0
                 ques_per_topic[questions.index(topic)]-=1
 
-            elif question[3]==8:
+            elif question[2]==8:
                 c = 0
                 for i in questions:
                     for j in i:
-                        if j[3] == 8 and j[1]==part and j[2]==diff:
+                        if j[2] == 8 and j[1]==diff:
                             c+=1
                 if c > 1:
                     #print("{}.) {}(8x1=8)".format(count+1,question[0]))
-                    question_paper.append(question)
+                    questionb_paper.append(question)
                     topic.remove(question)
                     while True:
                         another = random.choice(topic)
-                        if (another[3]==8) and (another[1]==part) and (another[2]==diff):
+                        if (another[2]==8) and (another[1]==diff):
                             #print("{}.) {} (8x1=8)".format(count+1,another[0]))
-                            question_paper.append(another)
+                            questionb_paper.append(another)
                             topic.remove(another)
                             #print()
                             count+=1
@@ -617,21 +375,21 @@ def solveB(part,diff,num,questions):
                 temp[questions.index(topic)]=0
                 ques_per_topic[questions.index(topic)]-=1
 
-            elif question[3]==12:
+            elif question[2]==12:
                 c = 0
                 for i in questions:
                     for j in i:
-                        if j[3] == 4 and j[1]==part and j[2]==diff:
+                        if j[2] == 4 and j[1]==diff:
                             c+=1
                 if c > 0:
                     #print("{}.) {} (12x1=12)".format(count+1,question[0]))
-                    question_paper.append(question)
+                    questionb_paper.append(question)
                     topic.remove(question)
                     while True:
                         another = random.choice(topic)
-                        if (another[3]==4) and (another[1]==part) and (another[2]==diff):
+                        if (another[2]==4) and (another[1]==diff):
                             #print("{}.) {} (4x1=4)".format(count+1,another[0]))
-                            question_paper.append(another)
+                            questionb_paper.append(another)
                             topic.remove(another)
                             #print()
                             count+=1
@@ -639,21 +397,21 @@ def solveB(part,diff,num,questions):
                 temp[questions.index(topic)]=0
                 ques_per_topic[questions.index(topic)]-=1
 
-            elif question[3]==10:
+            elif question[2]==10:
                 c = 0
                 for i in questions:
                     for j in i:
-                        if j[3] == 6 and j[1]==part and j[2]==diff:
+                        if j[2] == 6 and j[1]==diff:
                             c+=1
                 if c > 0:
                     #print("{}.) {} (10x1=10)".format(count+1,question[0]))
-                    question_paper.append(question)
+                    questionb_paper.append(question)
                     topic.remove(question)
                     while True:
                         another = random.choice(topic)
-                        if (another[3]==6) and (another[1]==part) and (another[2]==diff):
+                        if (another[2]==6) and (another[1]==diff):
                             #print("{}.) {} (6x1=6)".format(count+1,another[0]))
-                            question_paper.append(another)
+                            questionb_paper.append(another)
                             topic.remove(another)
                             #print()
                             count+=1
